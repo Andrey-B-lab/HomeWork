@@ -1,8 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  namespace: secure-app
   name: pod-manager
+  namespace: secure-app
 rules:
 - apiGroups: [""]
   resources: ["pods", "services"]

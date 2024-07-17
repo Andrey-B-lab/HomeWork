@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-server
+  name: frontend-deployment
   namespace: secure-app
 spec:
   replicas: 3
@@ -21,13 +21,20 @@ spec:
           value: "http://backend:8080"
         livenessProbe:
           httpGet:
-            path: /healthz
+            path: /
             port: 80
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /ready
+            path: /
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"

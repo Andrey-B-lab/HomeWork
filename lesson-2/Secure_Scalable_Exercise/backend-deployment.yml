@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-server
+  name: backend-deployment
   namespace: secure-app
 spec:
   replicas: 3
@@ -15,29 +15,26 @@ spec:
     spec:
       containers:
       - name: backend
-        image: nginx:latest
+        image: andreybyhalenko/nginx-custom:1.0.3
         env:
-        - name: MONGO_INITDB_ROOT_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-secret
-              key: mongo-root-username
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-secret
-              key: mongo-root-password
-        - name: MONGODB_URI
-          value: "mongodb://$(MONGO_INITDB_ROOT_USERNAME):$(MONGO_INITDB_ROOT_PASSWORD)@mongodb:27017/mydatabase"
+        - name: BACKEND_URL
+          value: "http://backend:8080"
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 8080
+            port: 80
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /ready
-            port: 8080
+            port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
