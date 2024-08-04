@@ -1,0 +1,3 @@
+FROM nginx:latest
+COPY cheddar.jpg /usr/share/nginx/html/cheddar.jpg
+COPY index-cheddar.html /usr/share/nginx/html/index.html

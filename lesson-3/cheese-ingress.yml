@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cheese-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: ams.cheese.com
+    http:
+      paths:
+      - path: /cheddar
+        pathType: Prefix
+        backend:
+          service:
+            name: cheddar-service
+            port:
+              number: 80
+      - path: /gouda
+        pathType: Prefix
+        backend:
+          service:
+            name: gouda-service
+            port:
+              number: 80

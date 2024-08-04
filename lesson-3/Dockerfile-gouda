@@ -1,0 +1,3 @@
+FROM nginx:latest
+COPY gouda.jpg /usr/share/nginx/html/gouda.jpg
+COPY index-gouda.html /usr/share/nginx/html/index.html
