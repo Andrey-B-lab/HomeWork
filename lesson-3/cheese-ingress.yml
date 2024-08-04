@@ -6,6 +6,10 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  tls:
+  - hosts:
+    - ams.cheese.com
+    secretName: cheese-tls
   rules:
   - host: ams.cheese.com
     http:
