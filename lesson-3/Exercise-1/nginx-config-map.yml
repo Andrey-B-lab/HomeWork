@@ -4,4 +4,13 @@ metadata:
   name: nginx-config
 data:
   index.html: |
-    # Content of the index.html file
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Welcome to the Cheese Store</title>
+    </head>
+    <body>
+        <h1>Welcome to the Cheese Store</h1>
+        <p>Here you can find various types of cheeses.</p>
+    </body>
+    </html>
