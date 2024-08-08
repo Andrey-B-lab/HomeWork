@@ -3,23 +3,28 @@ kind: Ingress
 metadata:
   name: cheese-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - ams.cheese.com
+    secretName: cheese-tls
   rules:
   - host: ams.cheese.com
     http:
       paths:
-      - path: /cheddar
-        pathType: Prefix
-        backend:
-          service:
-            name: cheddar-service
-            port:
-              number: 80
-      - path: /gouda
-        pathType: Prefix
+      - path: /gouda(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: gouda-service
             port:
-              number: 80
+              number: 3002
+      - path: /cheddar(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: cheddar-service
+            port:
+              number: 3001

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cheddar
-        image: andreybyhalenko/cheddar:1.0.1
+        image: andreybyhalenko/cheddar:1.0.3
         resources:
           requests:
             memory: "64Mi"
