@@ -11,20 +11,20 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: nginx-username
+            name: nginx-username-service
             port:
               number: 80
       - path: /password
         pathType: Prefix
         backend:
           service:
-            name: nginx-password
+            name: nginx-password-service
             port:
               number: 80
       - path: /url
         pathType: Prefix
         backend:
           service:
-            name: nginx-url
+            name: nginx-url-service
             port:
               number: 80
