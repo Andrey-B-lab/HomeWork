@@ -1,0 +1,18 @@
+Lesson 4 homework exercise.
+Securing Docker Images in a Kubernetes Environment Using Trivy. 
+
+I chose the nginx:latest image for this exercise.
+
+Exercise steps:
+
+1. Pull nginx:latest docker image.
+2. Install trivy.
+3. Scan the image with trivy. The scanning results output saved to trivy_nginxLatest_scan.txt file.
+4. I’m planning to write a simple PUT GET application, none of the found vulnerabilities should have any impact on the application.
+5. For enhanced security, I can created custom NGINX image with a base image alpine, then harden the configuration. I removed unnecessary modules, configured HTTPS, and applied security headers to enhance security. Dockerfile is in the repository.
+6. After the new image scan (trivy_nginxSecure_scan.txt) i got 1 security alert about the private key embedded inside the docker image. I will use Kubernetes secret to store it.
+7. I created secure-namespace and resource quotas.
+8. Created RBAC configuration.
+9. Created NetworkPolicy and PodSecurotyPolicy.
+10. To automate the scanning process, I would use CI tools such as Jenkins or GitHub actions.
+
