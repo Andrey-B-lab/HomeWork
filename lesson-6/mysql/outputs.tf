@@ -1,20 +1,8 @@
-resource "null_resource" "wait_for_mysql_instance" {
-  provisioner "local-exec" {
-    command = <<EOT
-    while [ -z "$(aws ec2 describe-instances --filters "Name=tag:aws:autoscaling:groupName,Values=mysql" "Name=instance-state-name,Values=running" --query "Reservations[].Instances[].PublicIpAddress" --output text)" ]; do
-      echo "Waiting for MySQL instance to become available..."
-      sleep 10
-    done
-    EOT
-  }
-  depends_on = [aws_autoscaling_group.mysql]
-}
-
-# Fetch the public IP of the MySQL instance once it's available
+# Ensure the MySQL instance has been fully created and is running
 data "aws_instance" "mysql_instance" {
   filter {
-    name   = "tag:aws:autoscaling:groupName"
-    values = ["mysql"]
+    name   = "tag:Name"
+    values = ["MySQL-Instance"]
   }
 
   filter {
@@ -22,9 +10,11 @@ data "aws_instance" "mysql_instance" {
     values = ["running"]
   }
 
-  depends_on = [null_resource.wait_for_mysql_instance]
+  # Ensure the data source waits for the instance to be available
+  depends_on = [aws_autoscaling_group.mysql]
 }
 
+# Output the public IP address of the MySQL instance
 output "mysql_instance_public_ip" {
   description = "The public IP of the MySQL instance"
   value       = data.aws_instance.mysql_instance.public_ip

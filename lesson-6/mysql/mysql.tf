@@ -6,6 +6,13 @@ resource "aws_launch_template" "mysql" {
 
   vpc_security_group_ids = [data.aws_security_group.default.id]
 
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "MySQL-Instance"
+    }
+  }
+
   user_data = base64encode(<<-EOF
   #!/usr/bin/bash
 yum install docker -y
