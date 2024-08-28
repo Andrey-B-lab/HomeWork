@@ -17,12 +17,7 @@ variable "mysql_user" {
 }
 
 variable "mysql_password" {
-  description = "The MySQL user password"
+  description = "The password for the MySQL user"
   type        = string
   sensitive   = true
-}
-
-variable "db_host" {
-  description = "The database host address"
-  type        = string
 }

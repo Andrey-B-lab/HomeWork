@@ -1,3 +1,4 @@
+# MySQL Launch Template
 resource "aws_launch_template" "mysql" {
   name_prefix   = "mysql"
   image_id      = "ami-0034529272b0a8509"
