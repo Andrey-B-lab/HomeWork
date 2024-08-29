@@ -4,7 +4,10 @@ resource "aws_launch_template" "mysql" {
   image_id      = "ami-0034529272b0a8509"
   instance_type = "t2.micro"
 
-  vpc_security_group_ids = [data.aws_security_group.default.id]
+    network_interfaces {
+    associate_public_ip_address = true
+    security_groups             = [data.aws_security_group.default.id]
+  }
 
   tag_specifications {
     resource_type = "instance"
