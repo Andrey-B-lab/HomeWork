@@ -1,4 +1,3 @@
-#bookstack instance
 resource "aws_launch_template" "bookstock" {
   name_prefix   = "bookstock"
   image_id      = "ami-0034529272b0a8509"
